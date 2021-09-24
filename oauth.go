@@ -42,6 +42,7 @@ type OAuthV2Response struct {
 	IncomingWebhook OAuthResponseIncomingWebhook `json:"incoming_webhook"`
 	Enterprise      OAuthV2ResponseEnterprise    `json:"enterprise"`
 	AuthedUser      OAuthV2ResponseAuthedUser    `json:"authed_user"`
+	ExpiresIn       string                       `json:"expires_in"`
 	SlackResponse
 }
 
