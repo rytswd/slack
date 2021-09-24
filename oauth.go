@@ -133,3 +133,24 @@ func GetOAuthV2ResponseContext(ctx context.Context, client httpClient, clientID,
 	}
 	return response, response.Err()
 }
+
+// RefreshOAuthV2AccessContext with a context, gets a V2 OAuth access token response
+func RefreshOAuthV2Token(client httpClient, clientID, clientSecret, code, redirectURI string) (resp *OAuthV2Response, err error) {
+	return RefreshOAuthV2TokenContext(context.Background(), client, clientID, clientSecret, code, redirectURI)
+}
+
+// RefreshOAuthV2AccessContext with a context, gets a V2 OAuth access token response
+func RefreshOAuthV2TokenContext(ctx context.Context, client httpClient, clientID, clientSecret, code, redirectURI string) (resp *OAuthV2Response, err error) {
+	values := url.Values{
+		"client_id":     {clientID},
+		"client_secret": {clientSecret},
+		"code":          {code},
+		"redirect_uri":  {redirectURI},
+		"grant_type":    {"refresh_token"},
+	}
+	response := &OAuthV2Response{}
+	if err = postForm(ctx, client, APIURL+"oauth.v2.access", values, response, discard{}); err != nil {
+		return nil, err
+	}
+	return response, response.Err()
+}
