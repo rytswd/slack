@@ -3,6 +3,7 @@ package slack
 import (
 	"context"
 	"net/url"
+	"time"
 )
 
 // OAuthResponseIncomingWebhook ...
@@ -42,7 +43,7 @@ type OAuthV2Response struct {
 	IncomingWebhook OAuthResponseIncomingWebhook `json:"incoming_webhook"`
 	Enterprise      OAuthV2ResponseEnterprise    `json:"enterprise"`
 	AuthedUser      OAuthV2ResponseAuthedUser    `json:"authed_user"`
-	ExpiresIn       string                       `json:"expires_in"`
+	ExpiresIn       time.Time                    `json:"expires_in"`
 	SlackResponse
 }
 
